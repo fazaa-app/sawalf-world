@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#791cff">
+<title>سوالف | SAWALF</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#100d1b;color:white;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#7928ff,#f044a2);padding:25px 18px;border-radius:0 0 28px 28px}
+.logo{font-size:32px;font-weight:bold}
+header p{margin:8px 0;color:#fff}
+input{width:100%;padding:14px;border:0;border-radius:14px;margin-top:15px;font-size:15px}
+main{padding:18px 15px 90px}
+h2{font-size:19px;margin-top:25px}
+.muted{color:#bdb3d1;font-size:13px}
+.stories{display:flex;gap:14px;overflow:auto;padding:10px 0}
+.story{min-width:62px;text-align:center;font-size:12px}
+.avatar{height:56px;width:56px;margin:auto auto 7px;border-radius:50%;display:grid;place-items:center;font-size:25px;background:linear-gradient(135deg,#ff65b5,#803cff);border:2px solid #ff9bd2}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:#211a34;border:1px solid #38264f;border-radius:18px;padding:16px 12px}
+.emoji{font-size:28px}
+.tile strong{display:block;margin:9px 0}
+.card{background:#211a34;border:1px solid #38264f;border-radius:18px;padding:16px;margin:12px 0}
+.row{display:flex;align-items:center;gap:12px}
+.icon{font-size:25px;background:linear-gradient(135deg,#853bff,#ef429e);padding:12px;border-radius:14px}
+button{background:linear-gradient(135deg,#853bff,#ef429e);color:white;border:0;border-radius:13px;padding:12px 18px;font-size:15px;font-weight:bold}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#191327;padding:13px 5px;border-top:1px solid #38264f}
+nav a{color:#ddd0ef;text-decoration:none;text-align:center;font-size:12px}
+nav span{display:block;font-size:21px;margin-bottom:5px}
+nav a:first-child{color:#ff78c6}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">💜 سوالف</div>
+<p>قرّبنا البعيد وجمّعنا العالم 🌍</p>
+<input id="search" placeholder="🔎 ابحث عن اهتمامات وأصدقاء">
+</header>
+<main>
+<h2>أهلًا بك في سوالف ✨</h2>
+<p class="muted">مساحتك للتواصل واكتشاف أشخاص واهتمامات جديدة.</p>
 
+<h2>🟣 أشخاص مقترحون</h2>
+<div class="stories">
+<div class="story"><div class="avatar">➕</div>قصتي</div>
+<div class="story"><div class="avatar">👨🏻</div>محمد</div>
+<div class="story"><div class="avatar">👩🏻</div>نور</div>
+<div class="story"><div class="avatar">🧑🏽</div>سامي</div>
+<div class="story"><div class="avatar">👩🏽</div>ليان</div>
+</div>
+
+<h2>🌟 اكتشف سوالف</h2>
+<div class="grid">
+<div class="tile"><div class="emoji">💬</div><strong>الدردشة</strong><div class="muted">محادثات وأصدقاء</div></div>
+<div class="tile"><div class="emoji">🎬</div><strong>الفيديوهات</strong><div class="muted">شارك لحظاتك</div></div>
+<div class="tile"><div class="emoji">📹</div><strong>البث المباشر</strong><div class="muted">تفاعل مع الجميع</div></div>
+<div class="tile"><div class="emoji">🎁</div><strong>الهدايا</strong><div class="muted">ادعم المبدعين</div></div>
+</div>
+
+<h2>💫 مجتمعات سوالف</h2>
+<div class="card">
+<div class="row"><div class="icon">🎨</div><div><strong>مجتمع المبدعين</strong><p class="muted">الفن والأفكار والمواهب</p></div></div>
+<button onclick="alert('قريبًا في سوالف 💜')">استكشف المجتمع</button>
+</div>
+<div class="card">
+<div class="row"><div class="icon">🌍</div><div><strong>أصدقاء من العالم</strong><p class="muted">تعرّف على ثقافات جديدة</p></div></div>
+<button onclick="alert('هذه نسخة تجريبية من سوالف 💜')">اكتشف المزيد</button>
+</div>
+<div class="card">
+<h2>🚀 سوالف تبدأ معك</h2>
+<p class="muted">هذه واجهة تجريبية. سنضيف تسجيل الحسابات والمحادثات الحقيقية والبث المباشر لاحقًا.</p>
+<button onclick="alert('أهلًا بك في سوالف 💜')">ابدأ الآن</button>
+</div>
+</main>
+<nav>
+<a href="#"><span>🏠</span>الرئيسية</a>
+<a href="#search"><span>🔎</span>اكتشف</a>
+<a href="#"><span>💬</span>الدردشة</a>
+<a href="#"><span>👤</span>حسابي</a>
+</nav>
+<script>
+document.getElementById('search').addEventListener('input',function(){
+let q=this.value.trim();
+document.querySelectorAll('.tile,.card,.story').forEach(function(el){
+el.style.opacity=!q||el.innerText.includes(q)?'1':'0.3';
+});
+});
+</script>
+</body>
+</html>
