@@ -88,5 +88,123 @@ el.style.opacity=!q||el.innerText.includes(q)?'1':'0.3';
 });
 });
 </script>
+<!-- نموذج تسجيل المستخدمين في سوالف -->
+<section id="sawalf-auth" dir="rtl"
+style="max-width:400px;margin:30px auto;padding:24px;
+background:#fff;border:1px solid #ddd;border-radius:16px;
+font-family:Arial,sans-serif;text-align:center">
+
+  <h2 style="color:#087f5b">أهلاً بك في سوالف 🌍</h2>
+  <p>أنشئ حسابك وابدأ التواصل مع العالم</p>
+
+  <form id="sawalf-register">
+    <input id="sawalf-email" type="email"
+    placeholder="البريد الإلكتروني" required
+    autocomplete="email"
+    style="box-sizing:border-box;width:100%;padding:12px;
+    margin:8px 0;border:1px solid #ccc;border-radius:8px">
+
+    <input id="sawalf-password" type="password"
+    placeholder="كلمة المرور (6 أحرف على الأقل)" required
+    minlength="6" autocomplete="new-password"
+    style="box-sizing:border-box;width:100%;padding:12px;
+    margin:8px 0;border:1px solid #ccc;border-radius:8px">
+
+    <button type="submit"
+    style="width:100%;padding:13px;margin-top:10px;
+    background:#087f5b;color:white;border:0;
+    border-radius:8px;font-size:16px">
+      إنشاء حساب
+    </button>
+  </form>
+
+  <button id="sawalf-login" type="button"
+  style="width:100%;padding:12px;margin-top:10px;
+  background:#eee;border:0;border-radius:8px">
+    لدي حساب بالفعل — تسجيل الدخول
+  </button>
+
+  <p id="sawalf-message" role="status"
+  style="overflow-wrap:anywhere"></p>
+</section>
+
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+// استبدل القيم التالية بقيم مشروعك من Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDkJ7Cvkq9Ue5C4fzLNj8O76I8OsF9Zc2g",
+  authDomain: "sawalf-82eb5.firebaseapp.com",
+  projectId: "sawalf-82eb",
+  appId: "1:294783812083:web:76be26ce017a8d4c511286"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const form = document.getElementById("sawalf-register");
+const emailInput = document.getElementById("sawalf-email");
+const passwordInput = document.getElementById("sawalf-password");
+const message = document.getElementById("sawalf-message");
+const loginButton = document.getElementById("sawalf-login");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  message.textContent = "جارٍ إنشاء حسابك...";
+
+  try {
+    const result = await createUserWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value
+    );
+
+    message.textContent =
+      "تم إنشاء حسابك بنجاح يا " + result.user.email;
+    form.reset();
+  } catch (error) {
+    const messages = {
+      "auth/email-already-in-use": "هذا البريد مسجل مسبقاً.",
+      "auth/invalid-email": "البريد الإلكتروني غير صحيح.",
+      "auth/weak-password": "اختر كلمة مرور أقوى.",
+      "auth/operation-not-allowed": "تحقق من تفعيل البريد وكلمة المرور في Firebase.",
+      "auth/invalid-api-key": "تحقق من إعدادات Firebase."
+    };
+
+    message.textContent =
+      messages[error.code] || "تعذر إنشاء الحساب. تحقق من إعدادات المشروع والاتصال.";
+  }
+});
+
+loginButton.addEventListener("click", async () => {
+  message.textContent = "جارٍ تسجيل الدخول...";
+
+  try {
+    const result = await signInWithEmailAndPassword(
+      auth,
+      emailInput.value.trim(),
+      passwordInput.value
+    );
+
+    message.textContent =
+      "أهلاً بعودتك يا " + result.user.email;
+  } catch (error) {
+    const messages = {
+      "auth/invalid-credential": "البريد أو كلمة المرور غير صحيحة.",
+      "auth/invalid-email": "اكتب بريداً إلكترونياً صحيحاً."
+    };
+
+    message.textContent =
+      messages[error.code] || "تعذر تسجيل الدخول. حاول مرة أخرى.";
+  }
+});
+</script>
 </body>
 </html>
